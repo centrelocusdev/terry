@@ -28,7 +28,6 @@ router.post('/register', async (req, res) => {
         res.send({
           user
         })
-       res.send("user created succrssfully")
       })
     })
   } catch (err) {
