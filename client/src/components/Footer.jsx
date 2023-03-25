@@ -13,7 +13,7 @@ const Footer = () => {
   return (
     <section className="bg-zinc-900 p-8 text-gray-400 font-semibold">
       <div className="flex flex-col gap-3 justify-center items-center">
-        <h4 onClick={(e) => navigate("/")} className="text-2xl font-bold cursor-pointer hover:text-sky-400">Terry</h4>
+        <h4 onClick={(e) => navigate("/")} className="text-2xl font-bold cursor-pointer hover:text-sky-400">Terri</h4>
 
         <div className="flex md:flex-row flex-col justify-center items-center gap-4 ">
           <button
