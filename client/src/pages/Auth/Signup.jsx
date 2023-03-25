@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import InputPrimary from "../../components/InputPrimary";
 import { useNavigate } from "react-router-dom";
 import axios from "axios"
-import { base_url } from "../../config";
+import { base_url, localhost } from "../../config";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -29,8 +29,7 @@ const Signup = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const res = await axios.post(base_url + 'register', formData)
-    const data = res.json()
-    console.log(data)
+    console.log(res)
   };
 
   const [email, setEmail] = useState("");

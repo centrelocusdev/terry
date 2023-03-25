@@ -2,7 +2,7 @@ import React from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import Navbar from "../../components/Navbar";
-import Mission from "./Mission";
+import WhatWeDo from "./WhatWeDo";
 import EndBanner from "../../components/EndBanner";
 import Numbers from "./Numbers";
 import About from "./About";
@@ -15,7 +15,7 @@ const Index = () => {
       <div className="md:p-16 p-8">
         <About />
         <Numbers />
-        <Mission />
+        <WhatWeDo />
       </div>
       <EndBanner />
       <Footer />

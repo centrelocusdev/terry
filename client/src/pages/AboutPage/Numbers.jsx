@@ -19,16 +19,16 @@ const Numbers = () => {
 
 const numbers = [
   {
-    counts: "200",
-    desc: "Countries Worldwide",
+    counts: "100%",
+    desc: "Secure",
   },
   {
-    counts: "156k",
-    desc: "Registered User",
+    counts: "100%",
+    desc: "Customized",
   },
   {
-    counts: "23k",
-    desc: "Small & Big Campanies",
+    counts: "100%",
+    desc: "Quality Templates",
   },
 ];
 
