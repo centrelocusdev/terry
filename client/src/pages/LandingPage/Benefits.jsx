@@ -3,7 +3,7 @@ import { FaArrowRight, FaCheck } from "react-icons/fa";
 import users from "../../assets/users.svg"
 import peace from "../../assets/peace.svg"
 
-const Marketing = () => {
+const Benefits = () => {
   return (
     <section className="md:p-16 p-8">
       <div className="flex items-center justify-center gap-16 my-16">
@@ -72,9 +72,9 @@ const Marketing = () => {
             }
           </ul>
 
-          <div className="flex gap-1 items-center text-sky-500 font-semibold  ">
+          {/* <div className="flex gap-1 items-center text-sky-500 font-semibold  ">
             <span>View case studies</span> <FaArrowRight />
-          </div>
+          </div> */}
         </div>
         <div className="md:w-fit hidden md:block">
           <div className="w-[20rem] rounded-b-full">
@@ -94,4 +94,4 @@ const benefits = [
   'Access your account from anywhere with our mobile-friendly design'
 ]
 
-export default Marketing;
+export default Benefits;

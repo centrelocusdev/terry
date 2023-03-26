@@ -4,7 +4,7 @@ import Navbar from "../../components/Navbar";
 import Faqs from "./Faqs";
 import Features from "./Features";
 import Hero from "./Hero";
-import Marketing from "./Marketing";
+import Benefits from "./Benefits";
 import Pricing from "./Pricing";
 import Testimonials from "../../components/Testimonials";
 
@@ -14,7 +14,7 @@ const Index = () => {
       <Navbar />
       <Hero />
       <Features />
-      <Marketing />
+      <Benefits />
       <Footer />
     </>
   )
