@@ -1,12 +1,15 @@
 import React from "react";
 import InputPrimary from "../../components/InputPrimary";
+import contact from "../../assets/contact.svg"
 
 const Contact = () => {
   return (
     <section className="md:p-16">
-      <div className="md:flex px-8 gap-8 justify-center">
+      <div className="md:flex px-8 gap-8 justify-center items-center">
         <div className="hidden lg:block">
-          <div className="w-[20rem] h-[22rem] rounded-tl-full bg-gray-200"></div>
+          <div className="w-[20rem] rounded-tl-full">
+            <img src={contact} alt="" />
+          </div>
         </div>
 
         <div className="md:w-1/2 mt-6 md:ml-8">
@@ -63,14 +66,14 @@ const Contact = () => {
         </div>
       </div>
 
-      <div className="md:w-2/3 md:h-72 mx-auto mt-16">
+      {/* <div className="md:w-2/3 md:h-72 mx-auto mt-16">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.99144060815!2d2.292292615188039!3d48.8583736086627!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e2964e34e2d%3A0x8ddca9ee380ef7e0!2sEiffel%20Tower!5e0!3m2!1sen!2sin!4v1679396923518!5m2!1sen!2sin"
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
           className="w-full h-full md:rounded-2xl"
         ></iframe>
-      </div>
+      </div> */}
     </section>
   );
 };

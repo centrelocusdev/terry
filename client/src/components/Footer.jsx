@@ -48,7 +48,7 @@ const Footer = () => {
           <FaPinterest />
         </div>
         <div className="text-center  mt-5">
-          &copy; copyright Terry {new Date().getFullYear()}
+          &copy; copyright Terri {new Date().getFullYear()}
         </div>
       </div>
     </section>
