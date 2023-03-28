@@ -29,7 +29,7 @@ const Signup = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const res = await axios.post(base_url + 'register', formData)
-    console.log(res)
+    navigate('/confirm/user-registered')
   };
 
   const [email, setEmail] = useState("");
@@ -48,7 +48,7 @@ const Signup = () => {
       <div className="md:flex justify-between">
         <div className="lg:w-1/3 min-h-screen p-8 flex flex-col justify-center">
           <h2 className="text-3xl font-bold uppercase underline decoration-4 underline-offset-8 decoration-sky-500">
-            {showRegister ? "Signup" : "Send OTP"}
+            {!showRegister ? "Register" : "Send OTP"}
           </h2>
           {!showRegister ? (
             <form

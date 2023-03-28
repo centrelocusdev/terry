@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import InputPrimary from "../../components/InputPrimary";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"
+import { base_url, localhost } from "../../config";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -19,6 +21,8 @@ const Login = () => {
   const onSubmit = async (e) => {
       e.preventDefault();
       console.log('submit clicked')
+      const res = await axios.post(base_url + 'login', formData)
+      navigate('/confirm/you-are-logged-in-now')
   };
 
   return (

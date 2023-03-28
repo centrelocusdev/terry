@@ -6,6 +6,8 @@ const AboutPage = lazy(() => import("./pages/AboutPage/Index"))
 const ContactPage = lazy(() => import("./pages/ContactPage/Index"))  
 const SignupPage = lazy(() => import("./pages/Auth/Signup"))  
 const LoginPage = lazy(() => import("./pages/Auth/Login"))  
+const ConfirmPage = lazy(() => import("./pages/Auth/Confirm"))  
+// import Confirm from './pages/Auth/Confirm'
 
 function App() {
   return (
@@ -22,6 +24,7 @@ function App() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/confirm/:message" element={<ConfirmPage />} />
         </Routes>
       </Suspense>
     </section>
