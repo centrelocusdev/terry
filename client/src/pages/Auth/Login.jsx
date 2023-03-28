@@ -21,8 +21,12 @@ const Login = () => {
   const onSubmit = async (e) => {
       e.preventDefault();
       console.log('submit clicked')
-      const res = await axios.post(base_url + 'login', formData)
-      navigate('/confirm/you-are-logged-in-now')
+      try {
+        const res = await axios.post(base_url + 'login', formData)
+        navigate('/confirm/you-are-logged-in-now')
+      } catch (err) {
+        navigate('/confirm/can-not-login-user')
+      }
   };
 
   return (

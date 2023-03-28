@@ -28,8 +28,12 @@ const Signup = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const res = await axios.post(base_url + 'register', formData)
-    navigate('/confirm/user-registered')
+    try {
+      const res = await axios.post(base_url + 'register', formData)
+      navigate('/confirm/user-registered')
+    } catch (err) {
+      navigate('/confirm/could-not-register-user')
+    } 
   };
 
   const [email, setEmail] = useState("");
