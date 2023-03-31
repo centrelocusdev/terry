@@ -7,7 +7,7 @@ const ContactPage = lazy(() => import("./pages/ContactPage/Index"))
 const SignupPage = lazy(() => import("./pages/Auth/Signup"))  
 const LoginPage = lazy(() => import("./pages/Auth/Login"))  
 const ConfirmPage = lazy(() => import("./pages/Auth/Confirm"))  
-// import Confirm from './pages/Auth/Confirm'
+const Dashboard = lazy(() => import("./pages/Dashboard/Index"))  
 
 function App() {
   return (
@@ -25,6 +25,7 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/confirm/:message" element={<ConfirmPage />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </Suspense>
     </section>
