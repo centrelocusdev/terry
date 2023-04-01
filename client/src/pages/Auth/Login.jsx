@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import InputPrimary from "../../components/InputPrimary";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"
-import { base_url, localhost } from "../../config";
+import InputPrimary from "../../components/InputPrimary";
+import { login } from "../../config/UserApi";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -20,20 +19,15 @@ const Login = () => {
 
   const onSubmit = async (e) => {
       e.preventDefault();
-      console.log('submit clicked')
-      try {
-        const res = await axios.post(base_url + 'login', formData)
-        navigate('/confirm/you-are-logged-in-now')
-      } catch (err) {
-        navigate('/confirm/can-not-login-user')
-      }
+      const res = await login(formData)
+      res && navigate('/dashboard')
   };
 
   return (
     <div className="h-screen bg-gray-100 w-screen text-gray-600">
       <div className="flex justify-between">
         {/* form */}
-        <div className="lg:w-1/3 h-screen px-16 flex flex-col justify-center">
+        <div className="lg:w-1/3 h-screen md:px-16 px-8 flex flex-col justify-center">
           <h2 className="text-3xl font-bold uppercase underline decoration-4 underline-offset-8 decoration-sky-400">
             Login
           </h2>
@@ -57,16 +51,13 @@ const Login = () => {
               value={formData.password}
               width={true}
             />
-            <div className="float-right mb-3">
-            <a href="/forgot-password" className="text-sky-400 text-xs hover:text-zinc-400">Forgot password</a>
-            </div>
-
             <button
-              className="bg-sky-400 text-white py-2 w-full rounded-2xl font-semibold ml-3"
-              type="submit"
-            >
-              Login
-            </button>
+                className="bg-sky-400 text-white py-2 w-full rounded-lg font-semibold mt-5 capitalize"
+                type="submit"
+              >
+                login
+              </button>
+            <p className="text-sm mt-2">Don't have an account? <a href="/login" className="text-sky-500">Register here</a></p>
           </form>
         </div>
 

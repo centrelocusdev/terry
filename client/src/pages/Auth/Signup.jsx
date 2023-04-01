@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import InputPrimary from "../../components/InputPrimary";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"
-import { base_url, localhost } from "../../config";
+import { register } from "../../config/UserApi";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -28,12 +28,8 @@ const Signup = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await axios.post(base_url + 'register', formData)
-      navigate('/confirm/user-registered')
-    } catch (err) {
-      navigate('/confirm/could-not-register-user')
-    } 
+    const res = await register(formData)
+    res && navigate('/dashboard')
   };
 
   const [email, setEmail] = useState("");
@@ -84,11 +80,13 @@ const Signup = () => {
               />
 
               <button
-                className="bg-sky-400 text-white py-2 w-full rounded-2xl font-semibold mt-5 capitalize"
+                className="bg-sky-400 text-white py-2 w-full rounded-lg font-semibold mt-5 capitalize"
                 type="submit"
               >
                 submit
               </button>
+
+              <p className="text-sm">Already have an account? <a href="/login" className="text-sky-500">Login here</a></p>
             </form>
           ) : (
             <form
