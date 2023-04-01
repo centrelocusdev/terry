@@ -15,7 +15,7 @@ router.post('/register', async (req, res) => {
         return  res.send({err: err.message})
       }
       else if(response.length){
-				return  res.send({msg: 'user already exist'})
+				return  res.send({err: 'user already exist'})
 			}
 
       const hash = await bcrypt.hash(password, 8)
