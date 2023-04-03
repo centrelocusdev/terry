@@ -9,10 +9,10 @@ const genJwtToken = (email) => jwt.sign({email}, process.env.JWT_SECRET, {expire
 //register user
 router.post('/register', async (req, res) => {
   try {
-    const { name, email, password } = req.body
+    const { name, email, password, contact_id } = req.body
     db.query('SELECT * FROM users WHERE email = ?', [email], async (err, response) => {
       if(err) {
-        return  res.send({err: err.message})
+        return  res.send({err})
       }
       else if(response.length){
 				return  res.send({err: 'user already exist'})
@@ -21,9 +21,9 @@ router.post('/register', async (req, res) => {
       const hash = await bcrypt.hash(password, 8)
       const token = genJwtToken(email)
 
-      db.query('INSERT INTO users(name, email, password, token) VALUES(?, ?, ?, ?)', [name, email, hash, token], (err, user) => {
+      db.query('INSERT INTO users(name, email, password, token, contact_id) VALUES(?, ?, ?, ?, ?)', [name, email, hash, token, contact_id], (err, user) => {
         if (err){
-					return  res.send({err: err.message})
+					return  res.send({err})
 				}
         res.send({
           user
@@ -31,7 +31,7 @@ router.post('/register', async (req, res) => {
       })
     })
   } catch (err) {
-    res.send({err: err.message})
+    res.send({err})
   }
 })
 
@@ -41,7 +41,7 @@ router.get('/user', async (req, res) => {
     const { email } = req.query
     db.query('SELECT * FROM users WHERE email = ?', [email], async (err, user) => {
 			if(err) {
-				return  res.send({err: err.message})
+				return  res.send({err})
 			}
 			else if(!user.length){
 				return  res.send({err: 'no user found'})
@@ -53,7 +53,7 @@ router.get('/user', async (req, res) => {
 	
 		})
   } catch (err) {
-    res.send({err: err.message})
+    res.send({err})
   }
 })
 
@@ -63,7 +63,7 @@ router.post('/update', async () => {
     const {email} = req.query
     db.query('SELECT * FROM users WHERE email = ?', [email], async (err, user) => {
 			if(err) {
-				return  res.send({err: err.message})
+				return  res.send({err})
 			}
 			else if(!user.length){
 				return  res.send({err: 'no user found'})
@@ -73,7 +73,7 @@ router.post('/update', async () => {
     res.send({msg: 'updating...'})
 
   } catch (err) {
-    res.send({err: err.message})
+    res.send({err})
   }
 })
 
@@ -83,7 +83,7 @@ router.post('/login', async (req, res) => {
     const { email, password } = req.body
     db.query('SELECT * FROM users WHERE email = ?', [email], async (err, user) => {
 			if(err) {
-				return  res.send({err: err.message})
+				return  res.send({err})
 			}
 			else if(!user.length){
 				return  res.send({err: 'no user found'})
@@ -103,7 +103,7 @@ router.post('/login', async (req, res) => {
 	
 		})
   } catch (err) {
-    res.send({err: err.message})
+    res.send({err})
   }
 })
 
