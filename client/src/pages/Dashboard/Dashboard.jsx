@@ -8,6 +8,7 @@ import {
   FiSettings,
   FiMenu,
   FiX,
+  FiFilePlus,
 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import CreateContact from "./CreateCustomer";
@@ -15,6 +16,7 @@ import CreateInvoice from "./CreateInvoice";
 import ListCustomers from "./ListContacts";
 import ListInvoices from "./ListInvoices";
 import ListItems from "./ListItems";
+import CreateItem from "./CreateItem";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -27,6 +29,10 @@ const Dashboard = () => {
     {
       title: "create customer",
       icon: <FiUserPlus />,
+    },
+    {
+      title: "create item",
+      icon: <FiFilePlus />,
     },
     {
       title: "list invoices",
@@ -49,7 +55,6 @@ const Dashboard = () => {
   const handleCurrentTab = (tab) => {
     setCurrentTab(tab);
   };
-  console.log(currentTab);
 
   return (
     <section className="md:flex ">
@@ -110,9 +115,10 @@ const Dashboard = () => {
         <div className="md:p-0 p-8 md:m-0 mt-16">
           {tabs[0].title == currentTab && <CreateInvoice />}
           {tabs[1].title == currentTab && <CreateContact />}
-          {tabs[2].title == currentTab && <ListInvoices />}
-          {tabs[3].title == currentTab && <ListCustomers />}
-          {tabs[4].title == currentTab && <ListItems />}
+          {tabs[2].title == currentTab && <CreateItem />}
+          {tabs[3].title == currentTab && <ListInvoices />}
+          {tabs[4].title == currentTab && <ListCustomers />}
+          {tabs[5].title == currentTab && <ListItems />}
         </div>
       </div>
     </section>

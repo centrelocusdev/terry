@@ -1,7 +1,9 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
-import { base_url } from "../config";
+
+const base_url = 'https://terry.thedelvierypointe.com'
+// const base_url = 'http://127.0.0.1:8085'
 
 const headers = {
   headers: {
@@ -37,7 +39,6 @@ export const login = async (formData) => {
 export const logout = async () => {
   try {
     Cookies.remove('terri-auth')
-    // await axios.get(`${base_url}/logout/`);
     toast.success("User logged out");
     return true;
   } catch (err) {

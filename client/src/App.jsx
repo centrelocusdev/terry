@@ -29,9 +29,10 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/confirm/:message" element={<ConfirmPage />} />
-          <Route element={<PrivateRoutes />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          {/* <Route element={<PrivateRoutes />}>
             <Route path="/dashboard" element={<Dashboard />} />
-          </Route>
+          </Route> */}
         </Routes>
       </Suspense>
       <ToastContainer />

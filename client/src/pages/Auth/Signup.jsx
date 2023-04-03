@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { toast } from "react-toastify";
 import InputPrimary from "../../components/InputPrimary";
 import { useNavigate } from "react-router-dom";
 import { register } from "../../config/UserApi";
+import { create_contact } from "../../config/ZohoApi"; 
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -28,8 +28,10 @@ const Signup = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const res = await register(formData)
-    res && navigate('/dashboard')
+    const zoho_contact_id = await create_contact(formData.name)
+    // const res = await register({...formData, contact_id: zoho_contact_id})
+    console.log(zoho_contact_id)
+    // res && navigate('/dashboard')
   };
 
   const [email, setEmail] = useState("");
