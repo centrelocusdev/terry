@@ -13,13 +13,10 @@ const {
 
 const headers = {
   headers: {
-    Authorization: `Zoho-oauthtoken ${localStorage.getItem("access_token")}`,
+    "Authorization": `Zoho-oauthtoken 1000.739185254c7151c95eb8c5dccae0989a.986aaf93670bae2ff338dffe41ba73c2`,
     "X-com-zoho-invoice-organizationid": VITE_zoho__orgnization_id,
-    "Content-Type": "application/json",
-    'Access-Control-Allow-Origin': '*',
-    mode: "cors",
   },
-}
+};
 
 //generate token
 export const generate_tokens = async () => {
@@ -52,7 +49,12 @@ export const regenerate_tokens = async () => {
 //create contact or orgnization
 export const create_contact = async (formData) => {
   try {
-    const res = await axios.post(`${base_url}/contacts`, JSON.stringify(formData), headers);
+    console.log(headers);
+    const res = await axios.post(
+      `${base_url}/contacts`,
+      JSON.stringify(formData),
+      headers
+    );
     res.data.code == 0 && toast.success("Created new contact");
     return res.data;
   } catch (err) {

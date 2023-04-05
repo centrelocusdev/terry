@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import InputPrimary from "../../components/InputPrimary";
 import ButtonPrimary from "../../components/ButtonPrimary";
+import { getUserByToken } from "../../config/api";
+import { createContactPerson } from "../../config/api";
 
-const Contact = () => {
+const Contact = ({setContactPerson}) => {
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
     email: "",
-    phone: "",
-    designation: "",
-    department: "",
     enable_portal: true
   });
 
@@ -22,8 +21,9 @@ const Contact = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    // const item = await create_item(formData)
-    console.log(formData)
+    const user = await getUserByToken()
+    const res = await createContactPerson({contact_id: user.contact_id, ...formData})
+    setContactPerson(res.contact_person)
   }
 
   return (
@@ -49,18 +49,6 @@ const Contact = () => {
         <InputPrimary
           label={"phone"}
           name={"phone"}
-          placeholer={""}
-        />
-      </div>
-      <div className="md:flex gap-5 justify-between mt-4">
-      <InputPrimary
-          label={"designation"}
-          name={"designation"}
-          placeholer={""}
-        />
-        <InputPrimary
-          label={"department"}
-          name={"department"}
           placeholer={""}
         />
       </div>

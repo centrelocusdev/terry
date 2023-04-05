@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import InputPrimary from "../../components/InputPrimary";
 import { useNavigate } from "react-router-dom";
-import { register } from "../../config/UserApi";
-import { create_contact } from "../../config/ZohoApi"; 
+import { register } from "../../config/api";
 
 const Signup = () => {
   const navigate = useNavigate();
-  
+
   const [showRegister, setShowRegister] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -28,10 +27,8 @@ const Signup = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const zoho_contact_id = await create_contact(formData.name)
-    // const res = await register({...formData, contact_id: zoho_contact_id})
-    console.log(zoho_contact_id)
-    // res && navigate('/dashboard')
+    const res = await register(formData)
+    res && navigate('/dashboard')
   };
 
   const [email, setEmail] = useState("");
@@ -88,7 +85,12 @@ const Signup = () => {
                 submit
               </button>
 
-              <p className="text-sm">Already have an account? <a href="/login" className="text-sky-500">Login here</a></p>
+              <p className="text-sm">
+                Already have an account?{" "}
+                <a href="/login" className="text-sky-500">
+                  Login here
+                </a>
+              </p>
             </form>
           ) : (
             <form

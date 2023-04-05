@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import InputPrimary from "../../components/InputPrimary";
-import { login } from "../../config/UserApi";
+import { login } from "../../config/api";
 
 const Login = () => {
   const navigate = useNavigate();

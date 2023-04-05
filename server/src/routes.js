@@ -25,6 +25,7 @@ router.post('/register', async (req, res) => {
         if (err){
 					return  res.send({err})
 				}
+        res.cookie('terri-auth', token)
         res.send({
           user
         })
@@ -96,12 +97,78 @@ router.post('/login', async (req, res) => {
 
 			const token = genJwtToken(email)
       db.query('UPDATE users SET token = ? WHERE email = ?', [token, email], (err, response) => {
+        res.cookie('terri-auth', token)
         res.send({
           user
         })
       })
 	
 		})
+  } catch (err) {
+    res.send({err})
+  }
+})
+
+router.post('/insert-contact', async (req, res) => {
+  try {
+    const {email, contact_id} = req.query
+    db.query('UPDATE users SET contact_id = ? WHERE email = ?', [contact_id, email], (err, response) => {
+      if(err) {
+        return res.send({err})
+      } else {
+        return res.send({message: 'updated contact id'})
+      }
+    })
+  } catch (err) {
+    res.send({err})
+  }
+})
+
+router.post('/logout', async (res, req) => {
+  try {
+    res.clearCookie('terri-auth')
+    res.send({message: 'logged out'})
+  } catch (err) {
+    res.send({err: err.message})
+  }
+})
+
+router.get('/user/:id', async (req, res) => {
+  try {
+    const id = req.params.id
+    db.query('SELECT * FROM users WHERE id = ?', [id], async (err, user) => {
+      if(err) {
+				return  res.send({err})
+			}
+			else if(!user.length){
+				return  res.send({err: 'no user found'})
+			}
+
+      res.send({
+        user
+      })
+    })
+  } catch (err) {
+    res.send({err})
+  }
+})
+
+//get user by token
+router.get('/user-by-token/:token', async (req, res) => {
+  try {
+    const token = req.params.token
+    db.query('SELECT * FROM users WHERE token = ?', [token], async (err, user) => {
+      if(err) {
+				return  res.send({err})
+			}
+			else if(!user.length){
+				return  res.send({err: 'no user found'})
+			}
+
+      res.send({
+        user
+      })
+    })
   } catch (err) {
     res.send({err})
   }

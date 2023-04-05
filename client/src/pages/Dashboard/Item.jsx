@@ -1,15 +1,21 @@
 import React, { useState } from "react";
 import ButtonPrimary from "../../components/ButtonPrimary";
 import InputPrimary from "../../components/InputPrimary";
-import { create_item } from "../../config/ZohoApi";
+import { createItem } from "../../config/api";
 
-const Item = () => {
+const Item = ({setItems}) => {
   const [formData, setFormData] = useState({
     name: "",
     rate: "",
     description: "",
-    product_type: "",
+    quantity: "",
+    // product_type: "",
   });
+
+  const [isTaxable, setIsTaxable] = useState(false)
+  const handleTaxableCheck = (e) => {
+    setIsTaxable(e.target.checked)
+  }
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -20,8 +26,9 @@ const Item = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    // const item = await create_item(formData);
-    console.log(formData);
+    const item = await createItem({...formData, is_taxable: isTaxable});
+    console.log(item)
+    setItems(item)
   };
 
   return (
@@ -36,7 +43,12 @@ const Item = () => {
             name={"description"}
             placeholer={""}
           />
-          <InputPrimary label={"Product type"} name={""} placeholer={""} />
+          {/* <InputPrimary label={"Product type"} name={"product_type"} placeholer={""} /> */}
+          <InputPrimary label={"Quantity"} name={"quantity"} placeholer={""} />
+        </div>
+        <div className="flex gap-2 text-gray-600 font-semibold mt-4">
+          <input type="checkbox" checked={isTaxable} onChange={handleTaxableCheck} />
+          <label htmlFor="isTaxable">Taxable</label>
         </div>
       <ButtonPrimary text={"Save"} handleClick={onSubmit} />
     </div>

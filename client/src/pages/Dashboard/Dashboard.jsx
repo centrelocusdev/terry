@@ -9,19 +9,26 @@ import {
   FiMenu,
   FiX,
   FiFilePlus,
+  FiLogOut
 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import CreateContact from "./CreateCustomer";
+import { logout } from "../../config/api";
+import CreateContactPerson from "./CreateContactPerson";
 import CreateInvoice from "./CreateInvoice";
-import ListCustomers from "./ListContacts";
+import ListContactPersons from "./ListContacts";
 import ListInvoices from "./ListInvoices";
 import ListItems from "./ListItems";
 import CreateItem from "./CreateItem";
+import CreateContact from "./CreateContact";
 
 const Dashboard = () => {
   const navigate = useNavigate();
 
   const tabs = [
+    {
+      title: "create contact",
+      icon: <FiUserPlus />,
+    },
     {
       title: "create invoice",
       icon: <FiPlusSquare />,
@@ -56,6 +63,11 @@ const Dashboard = () => {
     setCurrentTab(tab);
   };
 
+  const handleLogoutClick = async () => {
+    const res = await logout()
+    res && navigate('/')
+  }
+
   return (
     <section className="md:flex ">
       <div
@@ -75,6 +87,7 @@ const Dashboard = () => {
             <div onClick={handleToggleMenu}>
               {tabs.map((tab, index) => (
                 <li
+                  key={index}
                   onClick={(e) => handleCurrentTab(e.target.textContent)}
                   className={`${
                     tab.title == currentTab && "bg-indigo-900"
@@ -88,15 +101,19 @@ const Dashboard = () => {
           </ul>
 
           <div
-            onClick={() => handleCurrentTab("profile")}
-            className="flex gap-2 items-center cursor-pointer bg-gray-900 hover:bg-indigo-900 p-5"
+            className="flex justify-between items-center bg-gray-900 p-5"
           >
+            <button  onClick={() => handleCurrentTab("profile")} className="flex gap-2 items-center cursor-pointer hover:underline">
             <FiSettings />
             <span>Profile</span>
+            </button>
+
+            <button onClick={handleLogoutClick} title="Logout"><FiLogOut /></button>
+
           </div>
         </div>
       </div>
-      <div className="md:w-4/5 h-screen overflow-y-scroll bg-gray-100 md:p-16">
+      <div className="md:w-4/5 h-screen overflow-y-scroll md:bg-gray-100 md:p-16">
         <div className="flex justify-between text-2xl font-semibold text-gray-100 bg-indigo-dark p-5 md:hidden top-0 fixed z-10 w-full">
           <h3
             onClick={() => navigate("/")}
@@ -113,12 +130,13 @@ const Dashboard = () => {
         </div>
 
         <div className="md:p-0 p-8 md:m-0 mt-16">
-          {tabs[0].title == currentTab && <CreateInvoice />}
-          {tabs[1].title == currentTab && <CreateContact />}
-          {tabs[2].title == currentTab && <CreateItem />}
-          {tabs[3].title == currentTab && <ListInvoices />}
-          {tabs[4].title == currentTab && <ListCustomers />}
-          {tabs[5].title == currentTab && <ListItems />}
+          {tabs[0].title == currentTab && <CreateContact />}
+          {tabs[1].title == currentTab && <CreateInvoice />}
+          {tabs[2].title == currentTab && <CreateContactPerson />}
+          {tabs[3].title == currentTab && <CreateItem />}
+          {tabs[4].title == currentTab && <ListInvoices />}
+          {tabs[5].title == currentTab && <ListContactPersons />}
+          {tabs[6].title == currentTab && <ListItems />}
         </div>
       </div>
     </section>

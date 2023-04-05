@@ -1,25 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DashHeading from "../../components/DashHeading";
 import TableLayout from "../../components/TableLayout";
+import { getInvoices } from "../../config/api";
 
 const ListInvoices = () => {
-  const headings = [
-    "s.n", 
-    "invoice number",
-    "status",
-    "date",
-    "due date",
-    "email",
-    "currency",
-    "created by",
-    "balance",
-    "emailed",
-  ];
+  const [invoices, setInvoices] = useState([]);
+  const getInv = async () => {
+    const inv = await getInvoices();
+    setInvoices(inv);
+  };
+
+  useEffect(() => {
+    getInv();
+  }, []);
 
   return (
     <>
       <DashHeading text={"List invoices"} />
-      <TableLayout data={temp_invoices} />
+      {invoices?.length > 0 ? (
+        <TableLayout data={invoices} />
+      ) : (
+        <div>No data is available</div>
+      )}
     </>
   );
 };
