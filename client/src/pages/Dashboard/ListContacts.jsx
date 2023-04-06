@@ -1,17 +1,26 @@
 import React, {useState, useEffect} from "react";
 import DashHeading from "../../components/DashHeading";
 import TableLayout from "../../components/TableLayout";
-import { getContactPersons, getInvoices } from "../../config/api";
+import { getContactPersons, getUserByToken } from "../../config/api";
 
 const ListContacts = () => {
   const [contacts, setContacts] = useState([]);
-  const getContactPersons = async () => {
-    const data = await getContactPersons();
-    setContacts(data);
+
+  const contactPersons = async () => {
+    const user = await getUserByToken()
+    const data = await getContactPersons(user.contact_id);
+
+    const contactFiltered = data.contact_persons.map(contact => {
+      const { first_name, last_name, email, phone} = contact
+      return { first_name, last_name, email, phone}
+    })
+    setContacts(contactFiltered);
   };
 
+  
+
   useEffect(() => {
-    getContactPersons();
+    contactPersons();
   }, []);
 
   return (

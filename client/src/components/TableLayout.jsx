@@ -1,8 +1,9 @@
 import React from "react";
 
 const TableLayout = ({ data }) => {
+  console.log(data)
   return (
-    <table className="overflow-x-auto mx-auto bg-white md:p-16 p-5 rounded mt-5">
+    <table className="overflow-x-auto w-full mx-auto bg-white md:p-16 p-5 rounded mt-5">
       <thead className="text-gray-600">
       <th className="px-6 py-3 text-left font-semibold capitalize">
             S.No.

@@ -7,7 +7,23 @@ const ListItems = () => {
   const [items, setItems] = useState([]);
   const getAllItems = async () => {
     const data = await getItems();
-    setItems(data);
+    const itemsFiltered = data.items.map(item => {
+      const {
+        name,
+        status,
+        description,
+        rate
+      } = item
+
+      return {
+        name,
+        status,
+        description,
+        rate
+      }
+    })
+
+    setItems(itemsFiltered);
   };
 
   useEffect(() => {

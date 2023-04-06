@@ -104,6 +104,7 @@ export const createInvoice = async (formData) => {
   const res = await axios.post(`${API_URL_DEV}/create-invoice`, formData)
   if(res.data.err) {
     toast.error(res.data.err)
+    console.log(res.data)
     return
   } else {
     toast.success(res.data.message)

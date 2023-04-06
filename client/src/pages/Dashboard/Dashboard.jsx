@@ -46,7 +46,7 @@ const Dashboard = () => {
       icon: <FiList />,
     },
     {
-      title: "list users",
+      title: "list contacts",
       icon: <FiUsers />,
     },
     {

@@ -8,7 +8,6 @@ const Item = ({setItems}) => {
     name: "",
     rate: "",
     description: "",
-    quantity: "",
     // product_type: "",
   });
 
@@ -44,7 +43,6 @@ const Item = ({setItems}) => {
             placeholer={""}
           />
           {/* <InputPrimary label={"Product type"} name={"product_type"} placeholer={""} /> */}
-          <InputPrimary label={"Quantity"} name={"quantity"} placeholer={""} />
         </div>
         <div className="flex gap-2 text-gray-600 font-semibold mt-4">
           <input type="checkbox" checked={isTaxable} onChange={handleTaxableCheck} />

@@ -44,20 +44,19 @@ const regenerateTokens = async () => {
       `https://accounts.zoho.in/oauth/v2/token?refresh_token=${REFRESH_TOKEN}&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&grant_type=refresh_token&redirect_uri=${REDIRECT_URI}`
     );
 
-    console.log('token updated')
     const envConfig = dotenv.parse(fs.readFileSync('.env'));
     envConfig.ACCESS_TOKEN = zoho_res.data.access_token;
+    console.log('token updated') 
 
     fs.writeFileSync('.env', Object.entries(envConfig).map(([key, value]) => `${key}=${value}`).join('\n'));
   } catch (err) {
-    console.log("ERROR: ", err.message);
   }
 };
 
 // regenerateTokens()
 
-const job = new CronJob("0 * * * *", () => {
-  regenerateTokens()
+const job = new CronJob("0 * * * *", async () => {
+  await regenerateTokens()
 });
 job.start();
 
@@ -84,7 +83,6 @@ router.post("/create-contact", async (req, res) => {
 
     res.send(zoho_res.data);
   } catch (err) {
-    console.log(err.response.data.message);
     res.send({ err: err.response.data.message });
   }
 });
@@ -134,7 +132,6 @@ router.post("/create-item", async (req, res) => {
 router.get("/invoices", async (req, res) => {
   try {
     const zoho_res = await axios.get(`${base_url}/invoices`, headers);
-
     res.send(zoho_res.data);
   } catch (err) {
     res.send({ err: err.response.data.message });
