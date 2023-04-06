@@ -41,10 +41,8 @@ const CreateInvoice = () => {
     setItems(res.items);
   };
 
-  console.log(user);
-
   const getAllContactPersons = async () => {
-    const res = await getContactPersons(user.contact_id);
+    const res = await getContactPersons(user?.contact_id);
     setContacts(res.contact_persons);
   };
 
@@ -106,7 +104,7 @@ const CreateInvoice = () => {
   return (
     <div className="text-gray-600">
       {
-        user.contact_id ? (<>
+        user?.contact_id ? (<>
           <DashHeading text="Create invoice" />
       <div className="mx-auto bg-white md:p-16 p-5 rounded flex flex-col gap-8 mt-5">
         <div onChange={handleInvDataChange}>
