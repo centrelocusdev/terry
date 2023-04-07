@@ -145,6 +145,7 @@ router.get("/items", async (req, res) => {
 
     res.send(zoho_res.data);
   } catch (err) {
+    console.log(err)
     res.send({ err: err.response.data.message });
   }
 });

@@ -45,16 +45,23 @@ const CreateContact = () => {
     });
     if (res) {
       const contact_id = res?.contact.contact_id;
+      const user = await getUserByToken()
       const insert = await insertContact(user.email, contact_id);
     }
   };
 
-  const inti = async () => {
+  const init = async () => {
     const user_res = await getUserByToken();
     setUser(user_res);
+
   };
 
-  inti();
+  useEffect(() => {
+    async function runIt () {
+      await init()
+    }
+    runIt()
+  }, [])
   return (
     <>
       {user?.contact_id ? (
