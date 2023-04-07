@@ -3,6 +3,7 @@ const axios = require("axios");
 const CronJob = require("cron").CronJob;
 const fs = require("fs");
 const dotenv = require('dotenv')
+const db = require('./connection')
 
 const {
   CODE,
@@ -13,17 +14,34 @@ const {
   REFRESH_TOKEN,
 } = process.env;
 
+var accToken = 'value'
+
+const access_token =  async () => {
+  db.query("SELECT * FROM accesstoken", (err, res) => {
+    if(err) {
+      console.log(err.message)
+    } else {
+      console.log(res)
+      return res 
+    } 
+  })
+}  
+
+access_token()
+console.log("access token", access_token())
+
 const base_url = "https://www.zohoapis.in/invoice/v3";
 
 //setting up headers
 const headers = {
   headers: {
-    Authorization: `Zoho-oauthtoken ${process.env.ACCESS_TOKEN}`,
+    Authorization: `Zoho-oauthtoken ${access_token()}`,
     "X-com-zoho-invoice-organizationid": ORGNIZATION_ID,
     "Content-Type": "application/json",
   },
 };
 
+console.log(headers)
 //generate tokens
 const generateTokens = async () => {
   try {
@@ -36,7 +54,7 @@ const generateTokens = async () => {
     res.send({ err: err.response.data.message });
   }
 };
-
+      
 //regenerate tokens
 const regenerateTokens = async () => {
   try {
@@ -44,11 +62,24 @@ const regenerateTokens = async () => {
       `https://accounts.zoho.in/oauth/v2/token?refresh_token=${REFRESH_TOKEN}&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&grant_type=refresh_token&redirect_uri=${REDIRECT_URI}`
     );
 
+    //writing into env file
     const envConfig = dotenv.parse(fs.readFileSync('.env'));
     envConfig.ACCESS_TOKEN = zoho_res.data.access_token;
     console.log('token updated') 
 
     fs.writeFileSync('.env', Object.entries(envConfig).map(([key, value]) => `${key}=${value}`).join('\n'));
+
+    //writing in tables
+    const accesstoken = access_token()
+    if(!accesstoken) {
+      db.query('INSERT INTO accesstoken SET access_token = ? ', [zoho_res.data.access_token], (err, res) => {
+        if(err) throw new Error(err)
+      }) 
+    } else {
+      db.query('UPDATE accesstoken SET access_token = ? ', [zoho_res.data.access_token], (err, res) => {
+        if(err) throw new Error(err)
+      }) 
+    }
   } catch (err) {
   }
 };
