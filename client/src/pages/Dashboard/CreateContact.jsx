@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import InputPrimary from "../../components/InputPrimary";
 import ButtonPrimary from "../../components/ButtonPrimary";
 import DashHeading from "../../components/DashHeading";
-import { createContact, insertContact, getUserByToken } from "../../config/api";
+import { createContact, insertContact } from "../../config/api";
 
-const CreateContact = () => {
-  const [user, setUser] = useState();
+const CreateContact = ({user}) => {
   const [basicInfo, setBasicInfo] = useState({
     contact_name: "",
     company_name: "",
@@ -45,23 +44,10 @@ const CreateContact = () => {
     });
     if (res) {
       const contact_id = res?.contact.contact_id;
-      const user = await getUserByToken()
       const insert = await insertContact(user.email, contact_id);
     }
   };
-
-  const init = async () => {
-    const user_res = await getUserByToken();
-    setUser(user_res);
-
-  };
-
-  useEffect(() => {
-    async function runIt () {
-      await init()
-    }
-    runIt()
-  }, [])
+ 
   return (
     <>
       {user?.contact_id ? (
@@ -70,7 +56,7 @@ const CreateContact = () => {
         </>
       ) : (
         <>
-          <DashHeading text="create user" />
+          <DashHeading text="create contact" />
           <div className="bg-white md:p-16 p-5 rounded mt-5">
             <div onChange={onChangeBasicInfo}>
               <h4 className="font-semibold text-xl text-gray-600 border-b">

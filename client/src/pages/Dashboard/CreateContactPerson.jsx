@@ -4,13 +4,23 @@ import DashHeading from "../../components/DashHeading";
 import ButtonPrimary from "../../components/ButtonPrimary";
 import Contact from "./Contact";
 
-const CreateCustomer = () => {
+const CreateCustomer = ({ user }) => {
   return (
     <>
-      <DashHeading text="create customer" />
-      <div className="bg-white md:p-16 p-5 rounded mt-5">
-        <Contact />
-      </div>
+      {user?.contact_id ? (
+        <>
+          <DashHeading text="create contact person" />
+          <div className="bg-white md:p-16 p-5 rounded mt-5">
+            <Contact />
+          </div>
+        </>
+      ) : (
+        <>
+          <h2 className="text-4xl text-center text-gray-600">
+            Please create a contact first
+          </h2>
+        </>
+      )}
     </>
   );
 };

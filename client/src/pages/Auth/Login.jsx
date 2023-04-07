@@ -21,6 +21,10 @@ const Login = () => {
       e.preventDefault();
       const res = await login(formData)
       res && navigate('/dashboard')
+      res && setFormData({
+        email: "",
+        password: "",
+      })
   };
 
   return (

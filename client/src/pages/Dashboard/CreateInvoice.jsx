@@ -15,13 +15,12 @@ import {
 import TableLayout from "../../components/TableLayout";
 import { toast } from "react-toastify";
 
-const CreateInvoice = () => {
+const CreateInvoice = ({user}) => {
   const [formData, setFormData] = useState({
     discount: "",
     due_date: "",
     date: "",
   });
-  const [user, setUser] = useState();
   const [contactForms, setContactForms] = useState(1);
   const [itemForms, setItemForms] = useState(1);
   const [newItems, setNewItems] = useState([]);
@@ -31,13 +30,10 @@ const CreateInvoice = () => {
 
   useEffect(() => {
     async function runIt() {
-      const user_res = await getUserByToken();
-      setUser(user_res);
-
       const items_res = await getItems();
       setItems(items_res?.items);
 
-      const contacts_res = await getContactPersons(user_res?.contact_id);
+      const contacts_res = await getContactPersons(user?.contact_id);
       setContacts(contacts_res?.contact_persons);
     }
 
@@ -90,6 +86,14 @@ const CreateInvoice = () => {
         line_items: newItems,
         contact_persons: contactId,
       });
+
+      if(res.status == 'success') {
+        setFormData({
+          discount: "",
+          due_date: "",
+          date: "",
+        })
+      }
     }
   };
 

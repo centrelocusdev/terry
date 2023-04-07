@@ -24,6 +24,13 @@ const Contact = ({setContactPerson}) => {
     const user = await getUserByToken()
     const res = await createContactPerson({contact_id: user.contact_id, ...formData})
     setContactPerson(res.contact_person)
+
+    setFormData({
+      first_name: "",
+      last_name: "",
+      email: "",
+      enable_portal: true
+    })
   }
 
   return (

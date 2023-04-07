@@ -8,7 +8,6 @@ const Item = ({setItems}) => {
     name: "",
     rate: "",
     description: "",
-    // product_type: "",
   });
 
   const [isTaxable, setIsTaxable] = useState(false)
@@ -26,8 +25,13 @@ const Item = ({setItems}) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const item = await createItem({...formData, is_taxable: isTaxable});
-    console.log(item)
     setItems(item)
+
+    setFormData(({
+      name: "",
+      rate: "",
+      description: "",
+    }))
   };
 
   return (

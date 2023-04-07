@@ -29,6 +29,11 @@ const Signup = () => {
     e.preventDefault();
     const res = await register(formData)
     res && navigate('/dashboard')
+    res && setFormData({
+      name: "",
+      email: "",
+      password: "",
+    })
   };
 
   const [email, setEmail] = useState("");

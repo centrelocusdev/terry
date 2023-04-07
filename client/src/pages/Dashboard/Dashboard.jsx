@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FiUsers,
   FiUserPlus,
@@ -12,7 +12,7 @@ import {
   FiLogOut
 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../../config/api";
+import { logout, getUserByToken } from "../../config/api";
 import CreateContactPerson from "./CreateContactPerson";
 import CreateInvoice from "./CreateInvoice";
 import ListContactPersons from "./ListContacts";
@@ -20,9 +20,20 @@ import ListInvoices from "./ListInvoices";
 import ListItems from "./ListItems";
 import CreateItem from "./CreateItem";
 import CreateContact from "./CreateContact";
+import Profile from "./Profile";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const [user, setUser] = useState()
+
+  useEffect(() => {
+    async function runIt () {
+      const user_res = await getUserByToken()
+      setUser(user_res)
+    }
+
+    runIt()
+  }, [])
 
   const tabs = [
     {
@@ -34,7 +45,7 @@ const Dashboard = () => {
       icon: <FiPlusSquare />,
     },
     {
-      title: "create customer",
+      title: "create contact person",
       icon: <FiUserPlus />,
     },
     {
@@ -130,13 +141,14 @@ const Dashboard = () => {
         </div>
 
         <div className="md:p-0 p-8 md:m-0 mt-16">
-          {tabs[0].title == currentTab && <CreateContact />}
-          {tabs[1].title == currentTab && <CreateInvoice />}
+          {tabs[0].title == currentTab && <CreateContact user={user} />}
+          {tabs[1].title == currentTab && <CreateInvoice user={user} />}
           {tabs[2].title == currentTab && <CreateContactPerson />}
-          {tabs[3].title == currentTab && <CreateItem />}
+          {tabs[3].title == currentTab && <CreateItem user={user} />}
           {tabs[4].title == currentTab && <ListInvoices />}
-          {tabs[5].title == currentTab && <ListContactPersons />}
+          {tabs[5].title == currentTab && <ListContactPersons user={user} />}
           {tabs[6].title == currentTab && <ListItems />}
+          {"profile" == currentTab && <Profile user={user}/>}
         </div>
       </div>
     </section>
