@@ -55,7 +55,7 @@ const regenerateTokens = async () => {
 
 // regenerateTokens()
 
-const job = new CronJob("0 * * * *", async () => {
+const job = new CronJob("*/59 * * * *", async () => {
   await regenerateTokens()
 });
 job.start();
